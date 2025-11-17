@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  rss_bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rss_bot
+    restart: always
+    env_file: .env
