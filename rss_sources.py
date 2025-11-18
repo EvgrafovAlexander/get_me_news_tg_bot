@@ -27,10 +27,10 @@ RSS_SOURCES = [
         "name": "vedomosti.ru/business/retail",
         "url": "https://www.vedomosti.ru/rss/rubric/business/retail.xml"
     },
-    {
-        "name": "publication.pravo.gov.ru/documents/daily",
-        "url": "http://publication.pravo.gov.ru/api/rss?pageSize=30"
-    },
+    # {
+    #     "name": "publication.pravo.gov.ru/documents/daily",
+    #     "url": "http://publication.pravo.gov.ru/api/rss?pageSize=30"
+    # },
     {
         "name": "cnews.ru",
         "url": "https://www.cnews.ru/inc/rss/news.xml"
