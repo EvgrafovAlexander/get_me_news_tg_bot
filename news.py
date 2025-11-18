@@ -7,7 +7,7 @@ from io import BytesIO
 from db import is_article_new, mark_article_as_checked
 
 
-LAST_DAYS_ARTICLES = os.getenv("LAST_DAYS_ARTICLES")
+LAST_DAYS_ARTICLES = int(os.getenv("LAST_DAYS_ARTICLES", 3))
 
 
 def get_news_from_source(url: str) -> list:
