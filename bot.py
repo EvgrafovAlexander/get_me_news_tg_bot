@@ -19,6 +19,11 @@ def create_bot_app():
 
 
 async def send_message_to_bot(text):
+    """
+    Отправляет сообщение подписчикам бота.
+
+    :param text: текст сообщения на отправку
+    """
     bot = Bot(token=BOT_TOKEN)
     subscribers = get_all_subscribers()
     for chat_id in subscribers:
@@ -29,6 +34,13 @@ async def send_message_to_bot(text):
 
 
 def create_messages_from_news(source_name: str, news_list: list) -> list:
+    """
+    Создаёт перечень сообщений на отправку подписчикам.
+
+    :param source_name: источник статей
+    :param news_list: перечень статей, полученных из источника
+    :return: перечень сообщений на отправку
+    """
     MAX_LENGTH = 4000
     messages = []
 

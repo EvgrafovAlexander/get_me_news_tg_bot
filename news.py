@@ -11,6 +11,12 @@ LAST_DAYS_ARTICLES = int(os.getenv("LAST_DAYS_ARTICLES", 3))
 
 
 def get_news_from_source(url: str) -> list:
+    """
+    Получает перечень статей из источника.
+
+    :param url: RSS-адрес источника
+    :return: перечень статей
+    """
     news = []
     response = requests.get(url, verify=False)  # ignore SSL
     feed = feedparser.parse(BytesIO(response.content))
