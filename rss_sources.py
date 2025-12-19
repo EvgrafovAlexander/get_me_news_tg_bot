@@ -63,4 +63,8 @@ RSS_SOURCES = [
         "name": "t.me/digitalretail",
         "url": "https://rsshub.rssforever.com/telegram/channel/digitalretail"
     },
+    {
+        "name": "new-retail.ru",
+        "url": "https://new-retail.ru/rss/index_all.php",
+    },
 ]
