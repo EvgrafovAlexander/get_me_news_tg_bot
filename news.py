@@ -5,6 +5,7 @@ import os
 from io import BytesIO
 
 from db import is_article_new, mark_article_as_checked
+from logger import logger
 
 
 LAST_DAYS_ARTICLES = int(os.getenv("LAST_DAYS_ARTICLES", 3))
@@ -26,19 +27,26 @@ def get_news_from_source(url: str) -> list:
         "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8",
     }
 
-    response = requests.get(url, headers=headers, verify=False)  # ignore SSL
+    response = requests.get(url, headers=headers, verify=False, timeout=20)  # ignore SSL
     feed = feedparser.parse(BytesIO(response.content))
 
     for entry in feed.entries:
-        title, link = entry.title, entry.link
-        published_date, parsed_published_date = entry.published, entry.published_parsed
-        if is_article_new(link, parsed_published_date, LAST_DAYS_ARTICLES):
-            news.append(
-                {
-                    'title': title,
-                    'link': link,
-                    'published_date': published_date,
-                }
+        try:
+            title, link = entry.title, entry.link
+            published_date, parsed_published_date = entry.published, entry.published_parsed
+            if is_article_new(link, parsed_published_date, LAST_DAYS_ARTICLES):
+                news.append(
+                    {
+                        'title': title,
+                        'link': link,
+                        'published_date': published_date,
+                    }
+                )
+                mark_article_as_checked(link, title, published_date)
+        except Exception:
+            logger.exception(
+                f"Failed to process RSS entry | source={url} | "
+                f"title={getattr(entry, 'title', None)} | "
+                f"link={getattr(entry, 'link', None)}"
             )
-            mark_article_as_checked(link, title, published_date)
     return news

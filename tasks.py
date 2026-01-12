@@ -16,14 +16,17 @@ async def run_bot(app):
 async def check_all_sources():
     logger.info("RSS check running...")
     for source in RSS_SOURCES:
-        url = source['url']
-        name = source['name']
+        try:
+            url = source['url']
+            name = source['name']
 
-        news = get_news_from_source(url)
-        messages = create_messages_from_news(name, news)
+            news = get_news_from_source(url)
+            messages = create_messages_from_news(name, news)
 
-        for message in messages:
-            await send_message_to_bot(message)
+            for message in messages:
+                await send_message_to_bot(message)
+        except Exception as e:
+            logger.error(f"Error processing source: {source['name']}, description: {e}")
     logger.info("RSS check finished.")
 
 
