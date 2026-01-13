@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Устанавливаем timezone
 ENV TZ=Europe/Moscow
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Установка минимальных зависимостей для сборки пакетов Python
 RUN apt-get update && \
