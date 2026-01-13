@@ -1,14 +1,11 @@
 import feedparser
 import requests
 
-import os
 from io import BytesIO
 
+from config.settings import settings
 from db import is_article_new, mark_article_as_checked
 from logger import logger
-
-
-LAST_DAYS_ARTICLES = int(os.getenv("LAST_DAYS_ARTICLES", 3))
 
 
 def get_news_from_source(url: str) -> list:
@@ -34,7 +31,7 @@ def get_news_from_source(url: str) -> list:
         try:
             title, link = entry.title, entry.link
             published_date, parsed_published_date = entry.published, entry.published_parsed
-            if is_article_new(link, parsed_published_date, LAST_DAYS_ARTICLES):
+            if is_article_new(link, parsed_published_date, settings.rss_last_days):
                 news.append(
                     {
                         'title': title,

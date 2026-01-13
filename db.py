@@ -3,8 +3,10 @@ import sqlite3
 import time
 from contextlib import closing
 
+from config.settings import settings
 
-DB_PATH = "/app/data/db.sqlite"  # путь к БД внутри контейнера
+
+DB_PATH = settings.db_path  # путь к БД внутри контейнера
 
 def init_db():
     """
@@ -106,9 +108,8 @@ def cleanup_old_articles(last_days_articles: int = None) -> datetime.date:
     :param last_days_articles: заданное число дней, за которые получаем статьи
     :return: дата, ранее которой статьи были удалены
     """
-    from news import LAST_DAYS_ARTICLES
     if not last_days_articles:
-        last_days_articles = LAST_DAYS_ARTICLES
+        last_days_articles = settings.rss_last_days
 
     extra_days = 7
     cutoff_date = datetime.datetime.now(datetime. UTC).date() - datetime.timedelta(days=last_days_articles + extra_days)

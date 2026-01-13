@@ -1,13 +1,12 @@
 import asyncio
-import os
 import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from dotenv import load_dotenv
 
 from bot import create_bot_app
+from config.settings import settings
 from db import init_db
 from logger import logger
 from tasks import check_all_sources, run_bot, weekly_cleanup_job
@@ -15,7 +14,7 @@ from tasks import check_all_sources, run_bot, weekly_cleanup_job
 
 async def run_scheduler():
     """Запускает APScheduler с выполнением периодической задачи check_all_sources"""
-    refresh_minutes = int(os.getenv("RSS_REFRESH_MINUTES", 20))
+    refresh_minutes = settings.rss_refresh_minutes
 
     scheduler = AsyncIOScheduler()
     scheduler.add_job(check_all_sources, "interval", minutes=refresh_minutes)
@@ -41,9 +40,8 @@ async def main():
 
 
 if __name__ == "__main__":
-    load_dotenv()
     init_db()
-    if os.getenv("MANUAL_RUN", False):
+    if settings.manual_run:
         logger.info("MANUAL_RUN enabled — running check_all_sources once.")
         asyncio.run(check_all_sources())
     else:

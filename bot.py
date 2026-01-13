@@ -1,16 +1,13 @@
 from telegram import Bot, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-import os
-
+from config.settings import settings
 from db import add_subscriber, get_all_subscribers, remove_subscriber
 from logger import logger
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-
 
 def create_bot_app():
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    app = ApplicationBuilder().token(settings.bot_token).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("stop", stop))
@@ -24,7 +21,7 @@ async def send_message_to_bot(text):
 
     :param text: текст сообщения на отправку
     """
-    bot = Bot(token=BOT_TOKEN)
+    bot = Bot(token=settings.bot_token)
     subscribers = get_all_subscribers()
     for chat_id in subscribers:
         try:
