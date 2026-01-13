@@ -6,10 +6,15 @@ WORKDIR /app
 # Устанавливаем timezone
 ENV TZ=Europe/Moscow
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libffi-dev \
-    libssl-dev \
+# Установка минимальных зависимостей для сборки пакетов Python
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        gcc \
+        g++ \
+        make \
+        libc6-dev \
+        libffi-dev \
+        libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Копируем файлы проекта
