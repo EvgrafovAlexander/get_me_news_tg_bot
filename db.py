@@ -4,7 +4,7 @@ import time
 from contextlib import closing
 
 
-DB_PATH = "db.sqlite"  # путь к БД внутри контейнера
+DB_PATH = "/app/data/db.sqlite"  # путь к БД внутри контейнера
 
 def init_db():
     """
