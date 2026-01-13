@@ -1,8 +1,9 @@
-from bot import send_message_to_bot, create_messages_from_news
+from bot.sender import BotSender
+from core.news_formatter import build_news_messages
+from core.news_reader import get_news_from_source
+from core.rss_sources import RSS_SOURCES
 from db import cleanup_old_articles
 from logger import logger
-from news import get_news_from_source
-from rss_sources import RSS_SOURCES
 
 
 async def run_bot(app):
@@ -21,10 +22,8 @@ async def check_all_sources():
             name = source['name']
 
             news = get_news_from_source(url)
-            messages = create_messages_from_news(name, news)
-
-            for message in messages:
-                await send_message_to_bot(message)
+            messages = build_news_messages(name, news)
+            await BotSender().broadcast(messages)
         except Exception as e:
             logger.error(f"Error processing source: {source['name']}, description: {e}")
     logger.info("RSS check finished.")

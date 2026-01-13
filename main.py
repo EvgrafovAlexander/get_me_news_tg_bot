@@ -5,7 +5,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from bot import create_bot_app
+from bot.app import create_bot_app
 from config.settings import settings
 from db import init_db
 from logger import logger
