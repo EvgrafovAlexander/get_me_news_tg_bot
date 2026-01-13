@@ -10,10 +10,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Установка минимальных зависимостей для сборки пакетов Python
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        gcc \
-        libc6-dev \
-        libffi-dev \
-        libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Копируем файлы проекта
