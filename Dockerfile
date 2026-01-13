@@ -6,16 +6,18 @@ WORKDIR /app
 # Устанавливаем timezone
 ENV TZ=Europe/Moscow
 
-# Устанавливаем зависимости для сборки некоторых Python-библиотек
-# (Alpine использует musl, поэтому некоторым пакетам нужны dev-библиотеки)
-RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libffi-dev \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Копируем файлы проекта
 COPY . .
 
 # Устанавливаем зависимости
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir --prefer-binary -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt
 
 # Переменные окружения подтянутся из docker-compose
 CMD ["python", "main.py"]
