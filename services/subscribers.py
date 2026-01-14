@@ -1,4 +1,4 @@
-from db import add_subscriber, get_all_subscribers, remove_subscriber
+from services.db import add_subscriber, get_all_subscribers, remove_subscriber
 
 
 class SubscriberService:

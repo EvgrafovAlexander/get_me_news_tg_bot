@@ -7,8 +7,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from bot.app import create_bot_app
 from config.settings import settings
-from db import init_db
 from logger import logger
+from services.db import init_db
 from tasks import check_all_sources, run_bot, weekly_cleanup_job
 
 
