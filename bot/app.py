@@ -7,7 +7,7 @@ from config.settings import settings
 def create_bot_app():
     app = ApplicationBuilder().token(settings.bot_token).build()
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("stop", stop))
+    app.add_handler(CommandHandler("start", start.start))
+    app.add_handler(CommandHandler("stop", stop.stop))
 
     return app
