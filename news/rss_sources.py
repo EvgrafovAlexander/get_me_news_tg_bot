@@ -56,10 +56,6 @@ RSS_SOURCES = [
         "url": "https://rsshub.rssforever.com/telegram/channel/nalog_gov_ru"
     },
     {
-        "name": "t.me/itnewsru",
-        "url": "https://rsshub.rssforever.com/telegram/channel/itnewsru"
-    },
-    {
         "name": "t.me/digitalretail",
         "url": "https://rsshub.rssforever.com/telegram/channel/digitalretail"
     },
