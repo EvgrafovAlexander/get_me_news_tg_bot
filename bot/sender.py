@@ -2,7 +2,6 @@ from telegram import Bot
 
 from config.settings import settings
 from logger import logger
-from services.subscribers import SubscriberService
 
 
 class BotSender:
@@ -11,19 +10,16 @@ class BotSender:
 
     async def broadcast(self, messages: list[str]):
         """
-        Отправляет сообщения подписчикам бота.
+        Публикует сообщения в новостном канале.
 
         :param messages: перечень сообщений на отправку
         """
-        subscribers = SubscriberService.get_all()
-
-        for chat_id in subscribers:
-            for message in messages:
-                try:
-                    await self.bot.send_message(
-                        chat_id=chat_id,
-                        text=message,
-                        parse_mode="HTML"
-                    )
-                except Exception as e:
-                    logger.error(f"Ошибка отправки {chat_id}: {e}")
+        for message in messages:
+            try:
+                await self.bot.send_message(
+                    chat_id=settings.channel_id,
+                    text=message,
+                    parse_mode="HTML"
+                )
+            except Exception as e:
+                logger.error(f"Ошибка публикации в канал {settings.channel_id}: {e}")

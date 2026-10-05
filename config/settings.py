@@ -8,6 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 class Settings(BaseSettings):
     # Telegram
     bot_token: str
+    channel_id: int
 
     # RSS
     rss_refresh_minutes: int = 20
