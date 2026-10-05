@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     # Telegram
     bot_token: str
     channel_id: int
+    telegram_proxy: str | None = None
 
     # RSS
     rss_refresh_minutes: int = 20

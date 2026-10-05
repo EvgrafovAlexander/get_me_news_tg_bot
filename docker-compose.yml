@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   rss_bot:
+    network_mode: host
     build:
       context: .
       dockerfile: Dockerfile

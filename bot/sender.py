@@ -1,4 +1,5 @@
 from telegram import Bot
+from telegram.request import HTTPXRequest
 
 from config.settings import settings
 from logger import logger
@@ -6,7 +7,8 @@ from logger import logger
 
 class BotSender:
     def __init__(self):
-        self.bot = Bot(token=settings.bot_token)
+        request = HTTPXRequest(proxy=settings.telegram_proxy)
+        self.bot = Bot(token=settings.bot_token, request=request)
 
     async def broadcast(self, messages: list[str]):
         """
